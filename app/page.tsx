@@ -1,9 +1,8 @@
-import { ModeToggle } from "@/components/ui/toggle-mode";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <div>
-      <ModeToggle />
-    </div>
-  );
+export default async function Home() {
+  const session = await auth();
+
+  redirect(session?.user ? "/chat" : "/sign-in");
 }
